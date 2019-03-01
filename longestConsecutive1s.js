@@ -4,7 +4,6 @@ const longestConsecutive1s = (s) => {
   let result = 0;
   let start = 0;
   let end = 0;
-  debugger;
   for (let i = 0; i < s.length; i += 1) {
     if (s[i] === '1' && s[start] === '0') {
       start = i;
@@ -19,20 +18,32 @@ const longestConsecutive1s = (s) => {
     }
   }
   return result;
-}
+};
 
 const longestConsecutive1s2 = (s) => {
-  let oneGroups = s.split('0');
+  const oneGroups = s.split('0');
   let result = 0;
-  oneGroups.forEach(oneGroup => {
+  oneGroups.forEach((oneGroup) => {
     result = Math.max(oneGroup.length, result);
   });
   return result;
-}
+};
 
-console.log(longestConsecutive1s('101010101111101011')) // 5
-console.log(longestConsecutive1s2('101010101111101011')) // 5
+const longestConsecutive1s3 = (s, k) => {
+  let result = 0;
+  let zeroCount = 0;
+  let left = 0;
+  for (let right = 0; right < s.length; right += 1) {
+    if (s[right] === '0') zeroCount += 1;
 
+    while (zeroCount > k) {
+      if (s[left] === '0') zeroCount -= 1;
+      left += 1;
+    }
 
-// Find longest consecutive 1s, but you can remove at most one 0 from the string
-// On coderpad
+    result = Math.max(right - left + 1, result);
+  }
+  return result;
+};
+
+console.log(longestConsecutive1s3('0101000110111000111000', 1)) // 6
