@@ -61,3 +61,5 @@ const binaryInvert = (n) => { // Let's say n === 5
 
   return result;
 };
+
+console.log(binaryInvert(5)); // 2
