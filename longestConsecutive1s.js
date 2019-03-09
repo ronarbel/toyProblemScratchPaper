@@ -63,5 +63,44 @@ const longestConsecutive1s3 = (s, k) => {
   return result;
 };
 
+///////////////////
+// BEST SOLUTION //
+///////////////////
 
-console.log(longestConsecutive1s3('0101000110111000111000', 1)) // 6
+// -------- counter -------- //
+const longestConsecutive1s4 = (s) => {
+  let maxOnes = 0;
+  let tempOnes = 0;
+  for (let i = 0; i < s.length; i += 1) {
+    if (s[i] === '1') {
+      tempOnes += 1;
+      maxOnes = Math.max(tempOnes, maxOnes);
+    }
+    if (s[i] === '0') tempOnes = 0;
+  }
+  return maxOnes;
+};
+
+// -------- replace one 0, counter -------- //
+const longestConsecutive1s5 = (s) => {
+  let maxTotal = 0;
+  let leftOnes = 0;
+  let rightOnes = 0;
+
+  for (let i = 0; i < s.length; i += 1) {
+    if (s[i] === '1') {
+      rightOnes += 1;
+      maxTotal = Math.max(leftOnes + rightOnes, maxTotal);
+    }
+    if (s[i] === '0') {
+      leftOnes = rightOnes;
+      rightOnes = 0;
+    }
+  }
+
+  return maxTotal;
+};
+
+console.log(longestConsecutive1s5('110111'));
+
+console.log(longestConsecutive1s5('0101000110111000111000')) // 6
