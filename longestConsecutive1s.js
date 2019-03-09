@@ -1,5 +1,19 @@
 // Given a binary string eg: 101010101111101011, find the longest string of consecutive 1s
 
+// -------- counter -------- //
+const longestConsecutive1s4 = (s) => {
+  let maxOnes = 0;
+  let tempOnes = 0;
+  for (let i = 0; i < s.length; i += 1) {
+    if (s[i] === '1') {
+      tempOnes += 1;
+      maxOnes = Math.max(tempOnes, maxOnes);
+    }
+    if (s[i] === '0') tempOnes = 0;
+  }
+  return maxOnes;
+};
+
 // -------- two index pointers -------- //
 const longestConsecutive1s = (s) => {
   let result = 0;
@@ -48,7 +62,6 @@ const longestConsecutive1s3 = (s, k) => {
   }
   return result;
 };
-
 
 
 console.log(longestConsecutive1s3('0101000110111000111000', 1)) // 6
