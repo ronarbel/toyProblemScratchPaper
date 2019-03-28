@@ -103,6 +103,7 @@ const promptPlayer = () => {
   rl.question(`${player}'s turn. Choose a number: `, (input) => {
     // player move
     playMove(input);
+    // check end of game
     if (checkWin()) {
       endGame();
     } else if (!availableMoves) {
@@ -110,11 +111,13 @@ const promptPlayer = () => {
     } else {
       // comp move
       playRandomMove();
+      // check end of game
       if (checkWin()) {
         endGame();
       } else if (!availableMoves) {
         endTieGame();
       } else {
+        // next round
         promptPlayer();
       }
     }
