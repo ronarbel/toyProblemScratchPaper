@@ -1,13 +1,30 @@
 const https = require('https');
 
-https.get('https://jsonmock.hackerrank.com/api/movies/search/?Title=spiderman', (res) => {
-  console.log('statusCode:', res.statusCode);
-  console.log('headers:', res.headers);
+const getMovieTitles = (substr) => {
+  const titles = [];
+  const getTitles = (substr, pageNumber) => {
+    https.get(`https://jsonmock.hackerrank.com/api/movies/search/?Title=${substr}`, (res) => {
+      console.log('statusCode:', res.statusCode);
+      console.log('headers:', res.headers);
 
-  res.on('data', (d) => {
-    process.stdout.write(d);
-  });
+      res.on('data', (d) => {
+        const data = JSON.parse(d);
+        data.data.forEach((movie) => {
+          titles.push(movie.Title);
+        });
 
-}).on('error', (e) => {
-  console.error(e);
-});
+        console.log(titles);
+      });
+
+
+    }).on('error', (e) => {
+      console.error(e);
+    });
+
+  };
+
+
+  getTitles(substr, 1);
+}
+
+getMovieTitles('spiderman');
