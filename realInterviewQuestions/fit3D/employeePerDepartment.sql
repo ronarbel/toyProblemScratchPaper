@@ -1,0 +1,5 @@
+SELECT department.name, SUM(COUNT_OF_EMPLOYEES_IN_THE_DEPARTMENT), employee.name 
+FROM department
+INNER JOIN employee, SUM(COUNT_OF_EMPLOYEES_IN_THE_DEPARTMENT), 
+
+
