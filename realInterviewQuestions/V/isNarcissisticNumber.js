@@ -16,8 +16,15 @@ Explanation: 1^4+6^4+3^4+4^4=1634
 */
 
 const isNarcissisticNumber = (n) => {
-  const digits = n.toString.split('');
-  console.log(digits);
+  const digits = n.toString().split('');
+  let narcicissticSum = 0;
+
+  for (let i = 0; i < digits.length; i += 1) {
+    const digit = Number(digits[i]);
+    const narcAddition = digit ** digits.length;
+    narcicissticSum += narcAddition;
+  }
+  return narcicissticSum === n;
 };
 
 console.log(isNarcissisticNumber(153)); // true
