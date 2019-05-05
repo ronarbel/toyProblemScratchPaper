@@ -1,4 +1,5 @@
 const https = require('https');
+const readline = require('readline');
 
 const getTitle = (ISBN) => {
   https.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${ISBN}`, (res) => {
@@ -21,4 +22,15 @@ const getTitle = (ISBN) => {
   });
 };
 
-getTitle(9780545010221);
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question('What book title would you like to find? Enter ISBN: ', (answer) => {
+  getTitle(answer);
+
+  rl.close();
+});
+
+// getTitle(9780545010221); Harry Potter and the Deathly Hallows
