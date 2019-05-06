@@ -28,3 +28,61 @@ Assume that:
 N is an integer within the range[1...1,000,000];
 each element of array A is an integer within the range [-100,000,000...100,000,000].
 */
+
+const findDeepestPit = (a) => {
+  let deepestPit = -1;
+  let leftHeight = a[0];
+  let rightHeight = a[a.length - 1];
+
+  const depthInfos = [];
+
+  for (let i = 0; i < a.length; i += 1) {
+    const depthInfo = {};
+    const curVal = a[i];
+    const prevVal = a[i - 1];
+
+    if (curVal >= prevVal) {
+      leftHeight = curVal;
+    }
+
+    depthInfo.curVal = curVal;
+    depthInfo.leftHeight = leftHeight;
+
+    depthInfos.push(depthInfo);
+  }
+
+  for (let i = a.length - 1; i >= 0; i -= 1) {
+    const depthInfo = depthInfos[i];
+    const curVal = a[i];
+    const prevVal = a[i + 1];
+
+    if (curVal >= prevVal) {
+      rightHeight = curVal;
+    }
+
+    depthInfo.rightHeight = rightHeight;
+  }
+
+  for (let i = 0; i < depthInfos.length; i += 1) {
+    const { leftHeight, curVal, rightHeight } = depthInfos[i];
+
+    const leftDepth = leftHeight - curVal;
+    const rightDepth = rightHeight - curVal;
+
+    const actualDepth = Math.min(leftDepth, rightDepth);
+
+    if (actualDepth > 0) {
+      deepestPit = Math.max(actualDepth, deepestPit);
+    }
+  }
+
+  return deepestPit;
+}
+
+const depths = [0, 1, 3, -2, 0, 1, 0, -3, 2, 3]; // 4
+const depths2 = [1, 2, 3, 4, 3, 3, 2]; // -1
+const depths3 = [10, 8, 10, 9, 9, 8, 8, 7, 6, 7, 8, 8, 9, 9, 10]; // 2
+
+console.log(findDeepestPit(depths));
+console.log(findDeepestPit(depths2));
+console.log(findDeepestPit(depths3));
